@@ -29,8 +29,10 @@ should_publish_events = True
 phonepe_client = PhonePePaymentClient(MERCHANT_ID, SALT_KEY, SALT_INDEX, env, should_publish_events)
 
 
-PAYMENT_DOMAIN = 'http://localhost:5173/login/'
-BACKEND_DOMAIN = 'http://localhost:8000/payment/callback'
+# PAYMENT_DOMAIN = 'http://localhost:5173/login/'
+# BACKEND_DOMAIN = 'http://localhost:8000/payment/callback'
+PAYMENT_DOMAIN = 'https://tutor-swan.com/login/'
+BACKEND_DOMAIN = 'https://tutorswan-backend.onrender.com/payment/callback'
 
 router = APIRouter()
 user_db = UserDB()
