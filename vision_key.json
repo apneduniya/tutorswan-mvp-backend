@@ -1,0 +1,13 @@
+{
+    "type": "service_account",
+    "project_id": "tutor-swan",
+    "private_key_id": "a9f1385932844aace162673be5f95f1f486609dc",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQDqVt5fPVeK5m0+\n423iKPGeZy9pn9+6Dr9s9jAn9cht6lxChn9gE9Dxm9X7k1iFQZWbsovyIt379oid\nw5AbSoBYe41ba+jCMq5G2MxPa2XMYrqa7yTBAL5NLipvGY/sbiIelyyq6pobXwLz\nJ+QmLDTYjVZ/ZF89K0qVg3XZmhdjXIxiuRJyUmmNB1I1mJZBNcJ4h/EduQgo0pEI\neEJ3Wmq4gRGOkOVGK0V+VhGqvVEwXWAAkucyOM701gwu7o9YlHhxl6XeBYEztSsV\n1OSKbrF2QFVk+yV3Nzew2yD1fLqAWCteRUXlZ0jjB8NBj7iOll8zjJeCJHyE4ewK\n1VlS1sSpAgMBAAECgf9XiFtH+AHbQHdOJmXFNMYMBT8QlUdcmGWorc0PIB/d7szH\njLXHjZ9eoHctobxPClB3+BmOOLfyhgRB6erKRunqIzyKCaTH5WZz0EeA4v0De114\nwhtYfI6ZBcWT+lhoWDsmchGdRkSKNNNFQIFYQOr8eM72hueMUb9qWdCLl6Nk2VYb\nkjGq468gl630QeItm9MuZ4LaCkq3YbT44+zjY5uPv9rBB5rifgP28NZ1CvavjhZk\nTET46yYpT9qzvahwCVrTQk2e9QxpgTshjtlK22L5A4cw0sTW0n8MvOXDXy0CjKtV\nZiDl4smyBwb/g8XErV8fF936zn6YxPCpaNnoTrECgYEA9hyy92YPVJ/rcCqGZrgm\n1YnGUig0AQwrTAfDtOWtEHzsBIyWEMXQ232pa4FqXvIuN84OEj2ewQBalApsHfIt\nhA2i5F9Aih8DxLfem5oObp3nNtaQBxUy3b5Db42Db4L7nre+4c9mUo4YrzAWXiwM\nW6ZzNd7FcWvwbnfieF+JyNkCgYEA88EVsgBTiqzJaMdO2wtBHQOPPpD9ctlCv4ml\nxLVPqgJoGWFT4x62X2jdXdFMdycLSc3DpbeHUwL56+QA+h/xDC9ykkw19Gs44XxP\nWmf2CRLXnIDC5xEf5dXbGM6oI3vr9wtnXvDR8xoyagChHrsEyYcre4t7ON4CdWSA\nZZ+M+FECgYEA6/7LEfZ4vuH2RoFQjZEKE/tgA4nvjA2aOva7EGyojkXrn9UbVQwK\n4V3XJnJbiJ3b+cEJty4FW/a15H01/WUrhhP5XdmErq1c1LanrDeGnUWm3+vRAimu\ns/js+zwMi9Ji62gwjqFs8b62Js8Ks9SzKPMsSLzMQZ2KWLN2o4yhN8kCgYAe+nYQ\nZjw3zpfWSiY6bma7Ej29PN4JH5V9FDhOFKDoQWALgbQQlFGnNIOVrcjjB8JGgfEQ\neY+oPCOZGCQLpc2Tt9/+udLNmmbjOVI4cifxpURjrnWWujVsl04+C92QjOpDPl7H\n0SFNnRG1KRlQ94G3PweGrwZdBtIXK0uqHqni0QKBgCrQjPHG+7yG7wEEFKijfehc\n3Oh57B3vme/Nrd5b45wFIQmdsRyWG8AJkRWtahYeHpId/iuXGUxV/dFW1LM0o683\ndBR39WRThK2En6GmvuLav1xaTgwOIAqJM1FlJpEszirrkZsuZig+dv3yF9RWOCNb\njR0Xx5/zjelH11zF7x2h\n-----END PRIVATE KEY-----\n",
+    "client_email": "tutor-swan-python@tutor-swan.iam.gserviceaccount.com",
+    "client_id": "100781211600890174784",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/tutor-swan-python%40tutor-swan.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+  }

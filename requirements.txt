@@ -1,0 +1,15 @@
+fastapi
+starlette
+pydantic
+PyJWT
+pymongo
+python-jose
+python-jwt
+python-multipart
+uvicorn
+pydantic[email]
+passlib
+bcrypt
+requests
+google-cloud-vision
+openai
