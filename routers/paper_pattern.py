@@ -18,7 +18,7 @@ import openai
 from google.cloud import vision
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] ='vision_key.json'
-openai.api_key = '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'
+openai.api_key = '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'
 
 router = APIRouter()
 user_db = UserDB()
@@ -76,8 +76,9 @@ async def check_paper_pattern(data: CheckPaperPattern, current_user: UserBase = 
                 list_data['max_marks']
             )
 
-            # list_data["student_marks"] = await get_openai_response(prompt_text)
-            list_data["student_marks"] = 5 # TODO: Remove this line after testing
+            list_data["student_marks"] = await get_openai_response(prompt_text)
+            print(list_data["student_marks"])
+            # list_data["student_marks"] = 5 # TODO: Remove this line after testing
             total_marks += int(list_data["student_marks"])
 
         except Exception as e:
@@ -115,7 +116,7 @@ def generate_chat_prompt(teacher_ans, student_ans, min_marks, max_marks):
     Teacher: {teacher_ans}
     Student: {student_ans}
     System: Provide marks between {min_marks} and {max_marks}.
-    Teacher:
+    Teacher marks:
     """
 
     # Define the prompt for GPT-3
