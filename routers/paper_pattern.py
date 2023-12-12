@@ -116,7 +116,7 @@ def generate_chat_prompt(teacher_ans, student_ans, min_marks, max_marks):
     Teacher: {teacher_ans}
     Student: {student_ans}
     System: Provide marks between {min_marks} and {max_marks}.
-    Teacher marks:
+    Teacher marks(within range of {min_marks} and {max_marks}):
     """
 
     # Define the prompt for GPT-3
