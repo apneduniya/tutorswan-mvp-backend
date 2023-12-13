@@ -58,6 +58,8 @@ async def check_paper_pattern(data: CheckPaperPattern, current_user: UserBase = 
 
     for list_data in data.list:
         image_url_url = list_data["answer_url_list"]
+        list_data["student_answer"] = ""
+
         for image_url in image_url_url:
             try:
                 # Download image content
@@ -81,9 +83,14 @@ async def check_paper_pattern(data: CheckPaperPattern, current_user: UserBase = 
         )
 
         list_data["student_marks"] = await get_openai_response(prompt_text)
-        print(list_data["student_marks"])
+        print("Teacher answer: ", list_data["answer"])
+        print("Student answer: ", list_data["student_answer"])
+        print("Marks alloted by GPT: ", list_data["student_marks"])
         # list_data["student_marks"] = 5 # TODO: Remove this line after testing
-        total_marks += int(list_data["student_marks"])
+        # total_marks += int(list_data["student_marks"])
+
+        # Take only number from the response
+        total_marks += int(''.join(filter(str.isdigit, list_data["student_marks"])))
     
     # Save the result in the database
     paper_pattern_db.create_result({
