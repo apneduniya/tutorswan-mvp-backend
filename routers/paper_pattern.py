@@ -120,6 +120,7 @@ async def get_paper_pattern_results(paper_pattern_id: str, current_user: UserBas
 def generate_chat_prompt(teacher_ans, student_ans, min_marks, max_marks):
     # Define the conversation with the teacher and student answers
     conversation = f"""
+    Now you are a teacher and you have to grade the student's answer based on the provided teacher's answer.
     Teacher: {teacher_ans}
     Student: {student_ans}
     Teacher gives marks to the student's answer only in numbers within range of {min_marks} and {max_marks}. 
@@ -127,7 +128,37 @@ def generate_chat_prompt(teacher_ans, student_ans, min_marks, max_marks):
     """
 
     # Define the prompt for GPT-3
-    prompt = f"Behave like a teacher and grade the following student's answer based on the provided teacher's answer. The minimum marks are {min_marks} and the maximum marks are {max_marks}.\n\n{conversation}"
+    prompt = f"""Behave like a teacher and grade the following student's answer based on the provided teacher's answer. The minimum marks are {min_marks} and the maximum marks are {max_marks}.\n\n{conversation}
+    Example 1:
+    Teacher: 2
+    Student: 2
+    Teacher gives marks to the student's answer only in numbers within range of 0 and 5.
+    The marks: 2
+
+    Example 2:
+    Teacher: This is a cat with a hat.
+    Student: This is a cat with a ball.
+    Teacher gives marks to the student's answer only in numbers within range of 1 and 8.
+    The marks: 3
+
+    Example 3:
+    Teacher: He has a dog.
+    Student: He had a dog.
+    Teacher gives marks to the student's answer only in numbers within range of 1 and 5.
+    The marks: 4
+
+    Example 4:
+    Teacher: He has a red shirt.
+    Student: He has a red shirt.
+    Teacher gives marks to the student's answer only in numbers within range of 1 and 5.
+    The marks: 5
+
+    Example 5:
+    Teacher: That is a bull.
+    Student: That is a cow.
+    Teacher gives marks to the student's answer only in numbers within range of 1 and 5.
+    The marks: 1
+    """
 
     return prompt
 
