@@ -57,33 +57,33 @@ async def check_paper_pattern(data: CheckPaperPattern, current_user: UserBase = 
     total_marks = 0
 
     for list_data in data.list:
-        image_url = list_data["answer_url"]
+        image_url_url = list_data["answer_url_list"]
+        for image_url in image_url_url:
+            try:
+                # Download image content
+                image_content = download_image_content(image_url)
 
-        try:
-            # Download image content
-            image_content = download_image_content(image_url)
+                # Pass the downloaded content to Vision API
+                image = vision.Image(content=image_content)
+                response = vision_client.text_detection(image=image)
 
-            # Pass the downloaded content to Vision API
-            image = vision.Image(content=image_content)
-            response = vision_client.text_detection(image=image)
+                list_data["student_answer"] += response.text_annotations[0].description
 
-            list_data["student_answer"] = response.text_annotations[0].description
+            except Exception as e:
+                print(e)
+                raise HTTPException(status_code=500, detail=f"Error processing image: {str(e)}")
+            
+        prompt_text = generate_chat_prompt(
+            f"main question number: {list_data['main_question']}\nsub question number: {list_data['sub_question']}\nanswer: {list_data['answer']}",
+            list_data['student_answer'], 
+            list_data['min_marks'], 
+            list_data['max_marks']
+        )
 
-            prompt_text = generate_chat_prompt(
-                f"main question number: {list_data['main_question']}\nsub question number: {list_data['sub_question']}\nanswer: {list_data['answer']}",
-                list_data['student_answer'], 
-                list_data['min_marks'], 
-                list_data['max_marks']
-            )
-
-            list_data["student_marks"] = await get_openai_response(prompt_text)
-            print(list_data["student_marks"])
-            # list_data["student_marks"] = 5 # TODO: Remove this line after testing
-            total_marks += int(list_data["student_marks"])
-
-        except Exception as e:
-            print(e)
-            raise HTTPException(status_code=500, detail=f"Error processing image: {str(e)}")
+        list_data["student_marks"] = await get_openai_response(prompt_text)
+        print(list_data["student_marks"])
+        # list_data["student_marks"] = 5 # TODO: Remove this line after testing
+        total_marks += int(list_data["student_marks"])
     
     # Save the result in the database
     paper_pattern_db.create_result({
@@ -115,12 +115,12 @@ def generate_chat_prompt(teacher_ans, student_ans, min_marks, max_marks):
     conversation = f"""
     Teacher: {teacher_ans}
     Student: {student_ans}
-    System: Provide marks between {min_marks} and {max_marks}.
-    Teacher marks(within range of {min_marks} and {max_marks}):
+    Teacher gives marks to the student's answer only in numbers within range of {min_marks} and {max_marks}. 
+    The marks:
     """
 
     # Define the prompt for GPT-3
-    prompt = f"Grade the following student's answer based on the provided teacher's answer. The minimum marks are {min_marks} and the maximum marks are {max_marks}.\n\n{conversation}"
+    prompt = f"Behave like a teacher and grade the following student's answer based on the provided teacher's answer. The minimum marks are {min_marks} and the maximum marks are {max_marks}.\n\n{conversation}"
 
     return prompt
 
