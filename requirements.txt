@@ -13,3 +13,5 @@ bcrypt
 requests
 google-cloud-vision
 openai
+numpy
+scikit-learn

@@ -16,6 +16,8 @@ from utils.user import (
 import os
 import openai
 from google.cloud import vision
+import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] ='vision_key.json'
 openai.api_key = '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'
@@ -75,22 +77,36 @@ async def check_paper_pattern(data: CheckPaperPattern, current_user: UserBase = 
                 print(e)
                 raise HTTPException(status_code=500, detail=f"Error processing image: {str(e)}")
             
-        prompt_text = generate_chat_prompt(
-            f"main question number: {list_data['main_question']}\nsub question number: {list_data['sub_question']}\nanswer: {list_data['answer']}",
-            list_data['student_answer'], 
-            list_data['min_marks'], 
-            list_data['max_marks']
-        )
+        # prompt_text = generate_chat_prompt(
+        #     f"main question number: {list_data['main_question']}\nsub question number: {list_data['sub_question']}\nanswer: {list_data['answer']}",
+        #     list_data['student_answer'], 
+        #     list_data['min_marks'], 
+        #     list_data['max_marks']
+        # )
 
-        list_data["student_marks"] = await get_openai_response(prompt_text)
-        print("Teacher answer: ", list_data["answer"])
-        print("Student answer: ", list_data["student_answer"])
-        print("Marks alloted by GPT: ", list_data["student_marks"])
+        student_answer_embedding = get_embedding(list_data["student_answer"], model='text-embedding-ada-002')
+        teacher_answer_embedding = get_embedding(list_data["answer"], model='text-embedding-ada-002')
+
+        # Convert the embeddings to numpy arrays
+        student_answer_embedding = np.array(student_answer_embedding)
+        teacher_answer_embedding = np.array(teacher_answer_embedding)
+
+        # Calculate cosine similarity
+        cosine_similarity_score = cosine_similarity([student_answer_embedding], [teacher_answer_embedding])[0][0]
+
+        # Calculate marks
+        list_data["student_marks"] = int(round(cosine_similarity_score * (list_data["max_marks"] - list_data["min_marks"]) + list_data["min_marks"]))
+
+        # list_data["student_marks"] = await get_openai_response(prompt_text)
+        # print("Teacher answer: ", list_data["answer"])
+        # print("Student answer: ", list_data["student_answer"])
+        # print("Marks alloted by GPT: ", list_data["student_marks"])
         # list_data["student_marks"] = 5 # TODO: Remove this line after testing
         # total_marks += int(list_data["student_marks"])
 
         # Take only number from the response
-        total_marks += int(''.join(filter(str.isdigit, list_data["student_marks"])))
+        # total_marks += int(''.join(filter(str.isdigit, list_data["student_marks"])))
+        total_marks += int(list_data["student_marks"])
     
     # Save the result in the database
     paper_pattern_db.create_result({
@@ -186,4 +202,10 @@ def download_image_content(image_url: str):
         return response.content
     else:
         raise Exception(f"Failed to download image. Status code: {response.status_code}")
+
+
+# Cosine similarity
+    
+def get_embedding(text, model="gpt-4-32k"):
+    return openai.Embedding.create(engine=model, input=[text])['data'][0]['embedding']
 
