@@ -1,3 +1,9 @@
-MONGO_CONNECTION_URL = "mongodb+srv://tutorswan:wiLtfi5x7Dd4UnUZ@tutorswan.oyekqad.mongodb.net/"
-DATABASE_NAME = "tutorswan"
-IMGBB_API_KEY = "1e324b4ffd7be805484317642e989bbb"
+import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
+MONGO_CONNECTION_URL = os.environ.get("MONGO_CONNECTION_URL")
+DATABASE_NAME = os.environ.get("DATABASE_NAME")
+IMGBB_API_KEY = os.environ.get("IMGBB_API_KEY")
